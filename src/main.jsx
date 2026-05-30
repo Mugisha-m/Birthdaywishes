@@ -9,38 +9,43 @@ const pages = [
   { id: "gallery", label: "Photos" },
 ];
 
+const WISH_EMAIL = "mugishaalbert999@gmail.com";
+const WISH_ENDPOINT = `https://formsubmit.co/ajax/${WISH_EMAIL}`;
+// 8238e54acc4cea2ba249f1ac7e3cad33
+
 const wishes = [
   {
-    from: "Family",
-    title: "Big birthday smile",
-    body: "Teta, may this birthday feel colorful, playful, and full of the kind of happiness that stays in your heart.",
+    from: "With love",
+    title: "Birthday joy",
+    body: "Teta, may this birthday bring you bright smiles, gentle surprises, and happiness that stays close to your heart.",
     color: "rose",
   },
   {
-    from: "A Friend",
-    title: "A bright new year",
-    body: "Happy birthday, RURANGIRWA Teta. May 30 May always remind you how loved, special, and wonderfully made you are.",
-    color: "gold",
+    from: "For Teta",
+    title: "A beautiful year",
+    body: "Happy birthday, RURANGIRWA Teta. May this year bring confidence, peace, laughter, and many reasons to feel loved.",
+    color: "green",
   },
   {
-    from: "Someone grateful",
-    title: "Sweet little joys",
-    body: "May you receive soft laughter, happy surprises, and many small moments that make you feel like a beloved birthday child.",
+    from: "Warm wishes",
+    title: "Sweet moments",
+    body: "May your day be filled with soft laughter, kind words, and little moments that make your heart feel light.",
     color: "blue",
   },
 ];
 
 const galleryItems = [
-  { title: "Balloon Heart", className: "gif-heart" },
-  { title: "Tiny Candle", className: "gif-candle" },
-  { title: "Confetti Dots", className: "gif-sparkles" },
-  { title: "Rainbow Ribbon", className: "gif-ribbon" },
+  { title: "Heart", className: "gif-heart" },
+  { title: "Candle", className: "gif-candle" },
+  { title: "Sparkle", className: "gif-sparkles" },
+  { title: "Ribbon", className: "gif-ribbon" },
 ];
 
 function App() {
   const [page, setPage] = useState("home");
   const [customWish, setCustomWish] = useState("");
   const [posted, setPosted] = useState([]);
+  const [wishStatus, setWishStatus] = useState("");
   const [showSurprise, setShowSurprise] = useState(false);
 
   const age = useMemo(() => {
@@ -52,12 +57,42 @@ function App() {
     return years;
   }, []);
 
-  function submitWish(event) {
+  async function submitWish(event) {
     event.preventDefault();
     const cleanWish = customWish.trim();
     if (!cleanWish) return;
-    setPosted([{ from: "You", title: "A fresh wish", body: cleanWish, color: "blue" }, ...posted]);
+    setPosted([{ from: "You", title: "Your wish", body: cleanWish, color: "green" }, ...posted]);
     setCustomWish("");
+    setWishStatus("Sending...");
+
+    try {
+      if (WISH_EMAIL === "your-email@example.com") {
+        throw new Error("Set WISH_EMAIL before publishing.");
+      }
+
+      const response = await fetch(WISH_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "New birthday wish for Teta",
+          _captcha: "false",
+          name: "Birthday wish page",
+          message: cleanWish,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Wish email failed.");
+      }
+
+      setWishStatus("Sent.");
+    } catch (error) {
+      console.error(error);
+      setWishStatus("Added.");
+    }
   }
 
   return (
@@ -79,7 +114,7 @@ function App() {
           ))}
         </nav>
         <button className="surprise-nav" onClick={() => setShowSurprise(true)}>
-          Surprise Baby
+          Surprise
         </button>
       </header>
 
@@ -92,6 +127,7 @@ function App() {
             customWish={customWish}
             setCustomWish={setCustomWish}
             submitWish={submitWish}
+            wishStatus={wishStatus}
           />
         )}
         {page === "gallery" && <Gallery />}
@@ -100,7 +136,7 @@ function App() {
       {showSurprise && <BabySurprise onClose={() => setShowSurprise(false)} />}
 
       <footer>
-        A colorful, childlike birthday site for RURANGIRWA Teta. Clean safe visuals only.
+        Happy Birthday, RURANGIRWA Teta.
       </footer>
     </div>
   );
@@ -132,8 +168,7 @@ function Home({ age, setPage, openSurprise }) {
         <p className="eyebrow">Born 30 May 2005</p>
         <h1>Happy Birthday RURANGIRWA Teta</h1>
         <p className="lead">
-          A big, bright, childlike birthday world made with photos, wishes, soft animations,
-          balloons, cake colors, and a surprise that is silly enough to make her smile.
+          Today is wrapped in color, warmth, sweet memories, and every little reason to smile.
         </p>
         <div className="hero-actions">
           <button className="primary" onClick={() => setPage("wishes")}>
@@ -143,7 +178,7 @@ function Home({ age, setPage, openSurprise }) {
             See Photos
           </button>
           <button className="surprise-button" onClick={openSurprise}>
-            See Baby Surprise
+            Open Surprise
           </button>
         </div>
       </div>
@@ -168,16 +203,16 @@ function Home({ age, setPage, openSurprise }) {
     </section>
     <section className="page playful-strip">
       <article>
-        <span>Big color</span>
-        <strong>Red, blue, yellow</strong>
+        <span>Joy</span>
+        <strong>Bright and warm</strong>
       </article>
       <article>
-        <span>Soft shapes</span>
-        <strong>Rounded like balloons</strong>
+        <span>Love</span>
+        <strong>Close to heart</strong>
       </article>
       <article>
-        <span>Happy mood</span>
-        <strong>Made to feel young</strong>
+        <span>Peace</span>
+        <strong>Soft and beautiful</strong>
       </article>
     </section>
     </>
@@ -188,18 +223,17 @@ function Story({ age }) {
   return (
     <section className="page story">
       <div>
-        <p className="eyebrow">Her Story</p>
-        <h2>A bright birthday page for Teta</h2>
+        <p className="eyebrow">Her Day</p>
+        <h2>A beautiful celebration for Teta</h2>
         <p>
-          RURANGIRWA Teta's birthday is a reason to make everything feel sweet, innocent, and
-          joyful. The design follows the provided Festive Joy system: bold colors, big rounded
-          modules, soft shadows, and a playful childlike rhythm.
+          RURANGIRWA Teta, may your birthday feel gentle, joyful, and full of love from the
+          people who are grateful for you.
         </p>
         <div className="design-reference">
-          <img src="/assets/designsystem.png" alt="Provided colorful birthday design reference" />
+          <img src="/assets/designsystem.png" alt="Birthday colors" />
           <div>
-            <strong>Design mood</strong>
-            <span>Balloon arch, cake colors, gift-box energy, and friendly rounded shapes.</span>
+            <strong>Birthday glow</strong>
+            <span>Warm color, soft light, and a cheerful moment made just for today.</span>
           </div>
         </div>
       </div>
@@ -221,17 +255,17 @@ function Milestone({ year, text }) {
   );
 }
 
-function Wishes({ posted, customWish, setCustomWish, submitWish }) {
+function Wishes({ posted, customWish, setCustomWish, submitWish, wishStatus }) {
   const allWishes = [...posted, ...wishes];
 
   return (
     <section className="page wishes">
       <div className="section-heading">
         <p className="eyebrow">Kind Words</p>
-        <h2>Wish wall for Teta</h2>
+        <h2>Birthday wishes for Teta</h2>
       </div>
       <form className="wish-form" onSubmit={submitWish}>
-        <label htmlFor="wish">Add your message</label>
+        <label htmlFor="wish">Your message</label>
         <textarea
           id="wish"
           value={customWish}
@@ -239,9 +273,12 @@ function Wishes({ posted, customWish, setCustomWish, submitWish }) {
           placeholder="Write a sweet birthday wish..."
           maxLength="220"
         />
-        <button className="primary" type="submit">
-          Post Wish
-        </button>
+        <div className="form-row">
+          <button className="primary" type="submit">
+            Send Wish
+          </button>
+          {wishStatus && <span className="wish-status">{wishStatus}</span>}
+        </div>
       </form>
       <div className="wish-grid">
         {allWishes.map((wish, index) => (
@@ -260,17 +297,16 @@ function Gallery() {
   return (
     <section className="page gallery">
       <div className="section-heading">
-        <p className="eyebrow">Photos and Motion</p>
-        <h2>Colorful memories with playful GIF-style moments</h2>
+        <p className="eyebrow">Photos</p>
+        <h2>Beautiful memories</h2>
       </div>
       <div className="photo-showcase">
         <img src="/assets/teta-collage.png" alt="A collage of Teta birthday and life moments" />
         <div>
-          <p className="eyebrow">Provided Photos</p>
-          <h3>Teta in many beautiful moments</h3>
+          <p className="eyebrow">Memories</p>
+          <h3>Teta in beautiful moments</h3>
           <p>
-            These photos make the site feel personal while the animated cards keep it bright,
-            innocent, and birthday-child cheerful.
+            A bright collection of smiles, warmth, and memories worth keeping close.
           </p>
         </div>
       </div>
@@ -292,13 +328,13 @@ function Gallery() {
 
 function BabySurprise({ onClose }) {
   return (
-    <div className="surprise-overlay" role="dialog" aria-modal="true" aria-label="Surprise baby crying">
+    <div className="surprise-overlay" role="dialog" aria-modal="true" aria-label="Birthday surprise">
       <div className="surprise-panel">
         <button className="close" onClick={onClose} aria-label="Close surprise">
           Close
         </button>
-        <p className="eyebrow">Tiny Surprise</p>
-        <h2>The baby wants birthday cake</h2>
+        <p className="eyebrow">Surprise</p>
+        <h2>A little birthday laugh</h2>
         <div className="baby-scene" aria-hidden="true">
           <span className="baby-hair hair-a" />
           <span className="baby-hair hair-b" />
@@ -318,7 +354,7 @@ function BabySurprise({ onClose }) {
           <span className="sound sound-two">cake</span>
         </div>
         <p className="surprise-copy">
-          A silly crying baby animation, made only for a cute birthday laugh.
+          Cake, smiles, and one more happy moment for Teta.
         </p>
       </div>
     </div>

@@ -15,6 +15,8 @@
   --yellow: #ffe16d;
   --yellow-deep: #c9a900;
   --green: #31c36b;
+  --green-deep: #128949;
+  --green-soft: #d6f7e2;
   --outline: #e7bdb9;
   color: var(--text);
   background: var(--surface);
@@ -416,7 +418,7 @@ h2 {
 }
 
 .playful-strip article:nth-child(3) {
-  background: var(--yellow-deep);
+  background: var(--green-deep);
 }
 
 .playful-strip span {
@@ -552,8 +554,20 @@ h2 {
 }
 
 .wish-form textarea:focus {
-  border-color: var(--blue-bright);
-  box-shadow: 0 0 0 6px rgba(0, 149, 248, 0.14);
+  border-color: var(--green);
+  box-shadow: 0 0 0 6px rgba(49, 195, 107, 0.16);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.wish-status {
+  color: var(--green-deep);
+  font-weight: 900;
 }
 
 .wish-grid {
@@ -599,6 +613,10 @@ h2 {
 
 .wish-card.blue {
   background: var(--blue-soft);
+}
+
+.wish-card.green {
+  background: var(--green-soft);
 }
 
 .photo-showcase {
@@ -1246,7 +1264,8 @@ footer {
   .primary,
   .secondary,
   .surprise-button,
-  .surprise-nav {
+  .surprise-nav,
+  .form-row {
     width: 100%;
   }
 
