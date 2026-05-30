@@ -23,13 +23,13 @@ const wishes = [
   {
     from: "For Teta",
     title: "A beautiful year",
-    body: "Happy birthday, RURANGIRWA Teta. May this year bring confidence, peace, laughter, and many reasons to feel loved.",
+    body: "Happy birthday, RURANGIRWA Teta. May this year bring confidence, peace, laughter, and may you always feel good.",
     color: "green",
   },
   {
     from: "Warm wishes",
     title: "Sweet moments",
-    body: "May your day be filled with soft laughter, kind words, and little moments that make your heart feel light.",
+    body: "May your day be filled with soft laughter, kind words, and moments that make your heart feel light.",
     color: "blue",
   },
 ];
@@ -168,7 +168,7 @@ function Home({ age, setPage, openSurprise }) {
         <p className="eyebrow">Born 30 May 2005</p>
         <h1>Happy Birthday RURANGIRWA Teta</h1>
         <p className="lead">
-          Today is wrapped in color, warmth, sweet memories, and every little reason to smile.
+          May today be wrapped in color, in a good line of God, sweet memories, and strength in hard situations.
         </p>
         <div className="hero-actions">
           <button className="primary" onClick={() => setPage("wishes")}>
@@ -223,8 +223,8 @@ function Story({ age }) {
   return (
     <section className="page story">
       <div>
-        <p className="eyebrow">Her Day</p>
-        <h2>A beautiful celebration for Teta</h2>
+        <p className="eyebrow">Your Day</p>
+        <h2>A beautiful celebration for you Teta</h2>
         <p>
           RURANGIRWA Teta, may your birthday feel gentle, joyful, and full of love from the
           people who are grateful for you.
@@ -238,7 +238,7 @@ function Story({ age }) {
         </div>
       </div>
       <div className="timeline">
-        <Milestone year="2005" text="A special life begins on 30 May." />
+        <Milestone year="2005" text="May life begins on 30 May, always be guided by God" />
         <Milestone year="Today" text={`Teta is celebrated with ${age} years of memories and love.`} />
         <Milestone year="Next" text="More confidence, laughter, gentle surprises, and open doors." />
       </div>
@@ -334,7 +334,7 @@ function BabySurprise({ onClose }) {
           Close
         </button>
         <p className="eyebrow">Surprise</p>
-        <h2>A little birthday laugh</h2>
+        <h2>Teta is crying, Hh</h2>
         <div className="baby-scene" aria-hidden="true">
           <span className="baby-hair hair-a" />
           <span className="baby-hair hair-b" />
@@ -354,7 +354,7 @@ function BabySurprise({ onClose }) {
           <span className="sound sound-two">cake</span>
         </div>
         <p className="surprise-copy">
-          Cake, smiles, and one more happy moment for Teta.
+          Cake, smiles, and more happy moment for Teta.
         </p>
       </div>
     </div>
